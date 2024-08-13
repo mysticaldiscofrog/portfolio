@@ -1,142 +1,156 @@
-// src/app/page.tsx
 "use client";
 
-import { useState } from 'react';
-import YouTubeForm from '../components/YouTubeForm';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronDown,
+  ChevronUp,
+  Zap,
+  Leaf,
+  Globe,
+  Lock,
+  Truck,
+} from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
+import CibusAquaCasa from "@/components/projects/cibus-aqua-casa";
+import DatafiedForesight from "@/components/projects/datafied-foresight";
+import DigitalFortification from "@/components/projects/digital-fortification";
+import GaiasEngineers from "@/components/projects/gaias-engineers";
+import EliteCourier from "@/components/projects/elite-courier";
 
-import React from 'react';
+const Section = ({
+  title,
+  children,
+  icon: Icon,
+}: {
+  title: string;
+  children: React.ReactNode;
+  icon: React.ElementType;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div
+      className="bg-purple-lilac rounded-lg shadow-md overflow-hidden"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.button
+        className="w-full flex items-center justify-between p-4 bg-purple-lilac text-purple-dark"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="flex items-center">
+          <Icon className="mr-2" size={24} />
+          <h2 className="text-2xl font-semibold">{title}</h2>
+        </div>
+        {isOpen ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+      </motion.button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="p-4"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
 
 export default function HomePage() {
   return (
-    <main className="mt-8 bg-white shadow-md rounded-lg p-6 space-y-6">
-      <h2 className="text-xl font-bold text-purple-700">
-        Studio Create - Integrating Vision, Technology, and Sustainability
-      </h2>
-      <p className="text-gray-700">
-        "Bridging innovation and practicality for a sustainable future"
-      </p>
-      
-      <section>
-        <h3 className="text-lg font-semibold text-gray-900">About Studio Create:</h3>
-        <p className="text-gray-700">
-          Visionary systems integrators, designers, and sustainability advocates.
-          With many diverse backgrounds, we bring a unique and holistic approach to solving complex challenges.
+    <motion.main
+      className="mx-auto mt-8 p-6 space-y-6 bg-gradient-to-b from-purple-lilac to-purple-dark"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h1
+        className="text-4xl font-bold text-purple-dark text-center"
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+      >
+        Studio Create
+      </motion.h1>
+      <motion.p
+        className="text-xl text-gray-charcoal text-center italic"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        "Integrating Vision, Technology, and Sustainability"
+      </motion.p>
+
+      <Alert>
+        <Zap className="h-4 w-4 text-purple-dark" />
+        <AlertTitle className="text-purple-dark">New!</AlertTitle>
+        <AlertDescription className="text-purple-dark">Placeholder for alert description.</AlertDescription>
+      </Alert>
+
+      <Section title="About Studio Create" icon={Globe}>
+        <p className="text-gray-charcoal">
+          We are visionary systems integrators, designers, and sustainability
+          advocates. With our diverse backgrounds, we bring a unique and
+          holistic approach to solving complex challenges.
         </p>
-      </section>
-      
-      <section>
-        <h3 className="text-lg font-semibold text-gray-900">Our Ethos:</h3>
-        <p className="text-gray-700">
-          "Function is beautiful. Sustainability is essential. Knowledge should be accessible to all."
+      </Section>
+
+      <Section title="Our Ethos" icon={Leaf}>
+        <p className="text-gray-charcoal">
+          "Function is beautiful. Sustainability is essential. Knowledge should
+          be accessible to all."
         </p>
-      </section>
-      
-      <section>
-        <h3 className="text-lg font-semibold text-gray-900">Our Initiatives:</h3>
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-md font-semibold text-purple-700">
-              1. cibusaqua.casa: The Global Knowledge Nexus
-            </h4>
-            <p className="text-gray-700">"Cultivating Wisdom, Harvesting Change"</p>
-            <p className="text-gray-700">
-              cibusaqua.casa is a living, breathing ecosystem of global wisdom.
-              Here, knowledge transcends borders, adapting to local needs while addressing universal challenges.
-              Our geo-tagged system ensures that solutions are always culturally relevant and practically applicable.
-              By contributing insights, you're not just sharing information – you're catalyzing change on a global scale.
-            </p>
-            <p className="text-gray-700">
-              "In a world drowning in information, cibusaqua.casa is your lifeline to actionable wisdom."
-            </p>
-          </div>
+      </Section>
 
-          <div>
-            <h4 className="text-md font-semibold text-purple-700">
-              2. Datafied Foresight: Illuminating the Path Ahead
-            </h4>
-            <p className="text-gray-700">"Where Data Whispers, We Listen"</p>
-            <p className="text-gray-700">
-              We translate complexity into clarity, uncertainty into opportunity.
-              By analyzing global trends and their ripple effects, we provide a crystal ball for strategic decision-making.
-              We dive deep into organizational DNA, identifying inefficiencies and untapped potential.
-              With us, you're not just preparing for the future – you're actively shaping it.
-            </p>
-            <p className="text-gray-700">
-              "We don't just predict the future. We help you shape it."
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-md font-semibold text-purple-700">
-              3. Digital Fortification: Securing the Unseen Realm
-            </h4>
-            <p className="text-gray-700">"Your Digital Citadel Awaits"</p>
-            <p className="text-gray-700">
-              In today's hyperconnected world, your home network is the new frontier of personal security.
-              We build digital fortresses for those who can't afford to be vulnerable.
-              Our solutions are comprehensive security ecosystems that adapt to your lifestyle,
-              anticipating threats before they materialize.
-            </p>
-            <p className="text-gray-700">
-              "Because in the digital age, your home network is your castle's keep."
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-md font-semibold text-purple-700">
-              4. Gaia's Engineers: Crafting Tomorrow's Environment
-            </h4>
-            <p className="text-gray-700">"Breathing Life Back into Mother Earth"</p>
-            <p className="text-gray-700">
-              We're reimagining humanity's relationship with nature.
-              Our environmental systems blend cutting-edge technology with time-tested natural processes
-              to create scalable, sustainable solutions.
-              From carbon sequestration to waste transformation,
-              we're pioneering approaches that actively regenerate our planet.
-            </p>
-            <p className="text-gray-700">
-              "We're not just reducing our footprint. We're leaving a positive imprint."
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-md font-semibold text-purple-700">
-              5. Elite Courier: Discretion in Motion
-            </h4>
-            <p className="text-gray-700">"When 'Handle with Care' Isn't Enough"</p>
-            <p className="text-gray-700">
-              Elite Courier is the pinnacle of discrete, high-security logistics.
-              We understand that true luxury lies in flawless execution and ironclad trust.
-              Our team treats each item as if it were the crown jewels,
-              ensuring your most valuable possessions move across the world as if they never left your sight.
-            </p>
-            <p className="text-gray-700">
-              "Because some deliveries are too important for ordinary hands."
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h3 className="text-lg font-semibold text-gray-900">Our Vision:</h3>
-        <p className="text-gray-700">
-          Studio Create's journey is to foster a unique perspective on the interconnectedness of our world.
-          We create functional, beautiful solutions that address real-world problems,
-          spanning individual, corporate, and global scales.
+      <Section title="Our Vision" icon={Lock}>
+        <p className="text-gray-charcoal">
+          Studio Create's journey is to foster a unique perspective on the
+          interconnectedness of our world. We create functional, beautiful
+          solutions that address real-world problems, spanning individual,
+          corporate, and global scales.
         </p>
-        <p className="text-gray-700">
-          We're committed to bridging the gap between visionary concepts and practical implementation,
-          laying the groundwork for meaningful, sustainable change.
-          Join us in creating a future where technology and nature work in harmony,
-          where knowledge is freely accessible, and where sustainability is at the core of every decision.
+        <p className="text-gray-charcoal mt-2">
+          We're committed to bridging the gap between visionary concepts and
+          practical implementation, laying the groundwork for meaningful,
+          sustainable change. Join us in creating a future where technology and
+          nature work in harmony, where knowledge is freely accessible, and
+          where sustainability is at the core of every decision.
         </p>
-      </section>
+      </Section>
 
-      <section>
-        <h3 className="text-lg font-semibold text-gray-900">Connect:</h3>
-        <p className="text-gray-700">@destinyisearned</p>
-      </section>
+      <div className="space-y-4">
+        <CibusAquaCasa />
+        <DatafiedForesight />
+        <DigitalFortification />
+        <GaiasEngineers />
+        <EliteCourier />
+      </div>
 
-    </main>
+      <motion.section
+        className="text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        <h2 className="text-2xl font-semibold text-purple-base mb-4">
+          Connect:
+        </h2>
+        <a
+          href="https://twitter.com/destinyisearned"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-purple-300 hover:text-purple-900 transition-colors"
+        >
+          @destinyisearned
+        </a>
+      </motion.section>
+    </motion.main>
   );
 }

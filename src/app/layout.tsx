@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50 text-gray-800">
+      <body className="bg-purple-lilac">
         {/* You can add a header or navigation component here if needed */}
         {children}
         {/* You can add a footer component here if needed */}
