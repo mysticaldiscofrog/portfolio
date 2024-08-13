@@ -137,7 +137,6 @@ export default function HomePage() {
         <p className="text-gray-700">@destinyisearned</p>
       </section>
 
-      <YouTubeForm />
     </main>
   );
 }
